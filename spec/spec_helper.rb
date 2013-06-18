@@ -4,7 +4,7 @@ require 'net/ssh'
 require 'highline/import'
 
 include Serverspec::Helper::Ssh
-include Serverspec::Helper::DetectOS
+include Serverspec::Helper::RedHat
 
 RSpec.configure do |c|
   if ENV['ASK_SUDO_PASSWORD']
