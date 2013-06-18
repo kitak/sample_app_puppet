@@ -13,7 +13,6 @@ describe port(80) do
   it { should be_listening }
 end
 
-describe file('/etc/httpd/conf/httpd.conf') do
+describe file('/etc/nginx/nginx.conf') do
   it { should be_file }
-  it { should contain "ServerName app001.kitak.pb" }
 end

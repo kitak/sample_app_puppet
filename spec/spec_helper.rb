@@ -24,7 +24,7 @@ RSpec.configure do |c|
       c.ssh.close if c.ssh
       c.host  = host
       options = Net::SSH::Config.for(c.host)
-      user    = options[:user] || Etc.getlogin
+      user    = options[:user] || "kitak" 
 
       if ENV['ASK_LOGIN_PASSWORD']
         options[:password] = ask("\nEnter login password: ") { |q| q.echo = false}
