@@ -17,6 +17,12 @@ describe group('app001') do
   it { should have_gid 1000 }
 end
 
+describe "rails app" do
+  describe file('/var/www/rails/sample_app') do
+    it { should be_owned_by 'app001' }
+  end
+end
+
 describe "nginx" do
   describe package('nginx') do
     it { should be_installed }
