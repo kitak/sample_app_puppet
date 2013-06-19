@@ -55,8 +55,12 @@ describe "nginx" do
 end
 
 describe "unicorn" do
-  describe file('/var/www/rails/sample_app/tmp/sockets/nginx.sock') do
+  describe file("#{APP_PATH}/tmp/sockets/nginx.sock") do
     it { should be_socket }
+  end
+
+  describe file("#{APP_PATH}/config/unicorn.rb") do
+    it { should be_file }
   end
 
   describe command('ps aux | grep unicorn') do
