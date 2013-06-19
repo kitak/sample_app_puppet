@@ -50,10 +50,10 @@ describe "unicorn" do
   end
 
   describe command('ps aux | grep unicorn') do
-    it { should return_stdout /unicorn master/ }
+    it { should return_stdout /^app001.+unicorn master/ }
 
     4.times do |i|
-      it { should return_stdout /unicorn worker\[#{i}\]/ }
+      it { should return_stdout /^app001.+unicorn worker\[#{i}\]/ }
     end
   end
 end
