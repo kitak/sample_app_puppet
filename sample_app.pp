@@ -26,38 +26,38 @@ package { $packages:
 }
 
 user { 'app001':
-  ensure => present,
-  comment => 'app001',
-  home => '/home/app001',
+  ensure     => present,
+  comment    => 'app001',
+  home       => '/home/app001',
   managehome => true,
-  shell => '/bin/bash',
-  uid => 1000,
-  gid => 'app001',
+  shell      => '/bin/bash',
+  uid        => 1000,
+  gid        => 'app001',
 }
 
 group { 'app001':
   ensure => present,
-  gid => 1000,
+  gid    => 1000,
 }
 
 file { '/etc/nginx/nginx.conf':
-  ensure => present,
-  owner => 'root',
-  group => 'root',
-  mode => '0644',
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
   content => template('nginx.conf'),
-  notify => Service['nginx'],
+  notify  => Service['nginx'],
 }
 
 service { 'nginx':
-  enable => true,
-  ensure => running,
+  enable     => true,
+  ensure     => running,
   hasrestart => true,
 }
 
 service { 'mysqld':
-  enable => true,
-  ensure => running,
+  enable     => true,
+  ensure     => running,
   hasrestart => true,
 }
 
@@ -67,7 +67,7 @@ service { 'mysqld':
 #}
 
 exec { 'rbenv rubybuild':
-  cwd => '/usr/local',
+  cwd     => '/usr/local',
   creates => '/usr/local/rbenv',
-  require => Package['git']
+  require => Package['git'],
 }
