@@ -1,4 +1,4 @@
-$manifest_dir = "/home/kitak/sample_app_spec_manifest"
+$manifest_dir = "/home/kitak/sample_app_spec_puppet"
 $packages = [
   'gcc',
   'gcc-c++',
