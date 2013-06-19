@@ -65,3 +65,9 @@ service { 'mysqld':
 #   command => '/usr/bin/mysql -uroot -e "DELETE FROM mysql.user WHERE User=\'\'; DELETE FROM mysql.user WHERE User=\'root\' AND Host NOT IN (\'localhost\', \'127.0.0.1\', \'::1\'); DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;" mysql',
 #        require => Service['mysqld'],
 #}
+
+exec { 'rbenv rubybuild':
+  cwd => '/usr/local',
+  creates => '/usr/local/rbenv',
+  require => Package['git']
+}
