@@ -1,3 +1,4 @@
+$manifest_dir = "/home/kitak/sample_app_spec_manifest"
 $packages = [
   'gcc',
   'gcc-c++',
@@ -53,12 +54,14 @@ service { 'nginx':
   enable     => true,
   ensure     => running,
   hasrestart => true,
+  require    => Package['nginx'],
 }
 
 service { 'mysqld':
   enable     => true,
   ensure     => running,
   hasrestart => true,
+  require    => Package['mysql-server'],
 }
 
 #exec { 'mysql_secure_installation':
@@ -68,6 +71,8 @@ service { 'mysqld':
 
 exec { 'rbenv rubybuild':
   cwd     => '/usr/local',
+  path    => ['/bin', '/usr/bin'],
+  command => "sh ${manifest_dir}/install_rbenv_system-wide.sh",
   creates => '/usr/local/rbenv',
   require => Package['git'],
 }
