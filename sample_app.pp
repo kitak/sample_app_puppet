@@ -40,6 +40,15 @@ group { 'app001':
   gid => 1000,
 }
 
+file { '/etc/nginx/nginx.conf':
+  ensure => present,
+  owner => 'root',
+  group => 'root',
+  mode => '0644',
+  content => template('nginx.conf'),
+  notify => Service['nginx'],
+}
+
 service { 'nginx':
   enable => true,
   ensure => running,
@@ -51,3 +60,8 @@ service { 'mysqld':
   ensure => running,
   hasrestart => true,
 }
+
+#exec { 'mysql_secure_installation':
+#   command => '/usr/bin/mysql -uroot -e "DELETE FROM mysql.user WHERE User=\'\'; DELETE FROM mysql.user WHERE User=\'root\' AND Host NOT IN (\'localhost\', \'127.0.0.1\', \'::1\'); DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;" mysql',
+#        require => Service['mysqld'],
+#}
