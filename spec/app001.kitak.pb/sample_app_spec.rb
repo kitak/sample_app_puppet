@@ -1,25 +1,29 @@
 require 'spec_helper'
 
+APP_USER = "app001"
+APP_GROUP = "app001"
+APP_PATH = "/var/www/rails/sample_app"
+
 describe "ssh" do
   describe port(22) do
     it { should be_listening }
   end
 end
 
-describe user('app001') do
+describe user(APP_USER) do
   it { should exist }
   it { should have_uid 1000 }
-  it { should have_home_directory '/home/app001' }
+  it { should have_home_directory "/home/#{APP_USER}" }
 end
 
-describe group('app001') do
+describe group(APP_GROUP) do
   it { should exist }
   it { should have_gid 1000 }
 end
 
 describe "rails app" do
-  describe file('/var/www/rails/sample_app') do
-    it { should be_owned_by 'app001' }
+  describe file(APP_PATH) do
+    it { should be_owned_by APP_USER }
   end
 end
 
@@ -43,7 +47,7 @@ describe "nginx" do
     it { should contain "include mime.types;" }
     it { should contain(<<-EOS) }
     upstream backend {
-      server unix:/var/www/rails/sample_app/tmp/sockets/nginx.sock;
+      server unix:#{APP_PATH}/tmp/sockets/nginx.sock;
     }
     EOS
     it { should contain "proxy_pass http://backend" }
@@ -56,10 +60,10 @@ describe "unicorn" do
   end
 
   describe command('ps aux | grep unicorn') do
-    it { should return_stdout /^app001.+unicorn master/ }
+    it { should return_stdout /^#{APP_USER}.+unicorn master/ }
 
     4.times do |i|
-      it { should return_stdout /^app001.+unicorn worker\[#{i}\]/ }
+      it { should return_stdout /^#{APP_USER}.+unicorn worker\[#{i}\]/ }
     end
   end
 end
