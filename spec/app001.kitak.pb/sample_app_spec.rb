@@ -48,6 +48,14 @@ describe "unicorn" do
   describe file('/var/www/rails/sample_app/tmp/sockets/nginx.sock') do
     it { should be_socket }
   end
+
+  describe command('ps aux | grep unicorn') do
+    it { should return_stdout /unicorn master/ }
+
+    4.times do |i|
+      it { should return_stdout /unicorn worker\[#{i}\]/ }
+    end
+  end
 end
 
 describe "mysql" do
