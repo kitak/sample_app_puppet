@@ -41,6 +41,12 @@ describe "nginx" do
     it { should be_file }
     it { should contain "server_name app001.kitak.pb;" }
     it { should contain "include mime.types;" }
+    it { should contain(<<-EOS) }
+    upstream backend {
+      server unix:/var/www/rails/sample_app/tmp/sockets/nginx.sock;
+    }
+    EOS
+    it { should contain "proxy_pass http://backend" }
   end
 end
 
