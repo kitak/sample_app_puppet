@@ -44,6 +44,12 @@ describe "nginx" do
   end
 end
 
+describe "unicorn" do
+  describe file('/var/www/rails/sample_app/tmp/sockets/nginx.sock') do
+    it { should be_socket }
+  end
+end
+
 describe "mysql" do
   describe package('mysql-server') do
     it { should be_installed }
