@@ -23,7 +23,21 @@ end
 
 describe "rails app" do
   describe file(APP_PATH) do
+    it { should be_directory }
+  end
+
+  describe file(APP_PATH) do
     it { should be_owned_by APP_USER }
+  end
+
+  describe file("#{APP_PATH}/config/database.yml") do
+    it { should contain('mysql2').after(/^production:/)}
+  end
+
+  describe file("#{APP_PATH}/Gemfile") do
+    it { should contain('mysql2').from(/^group :production/).to(/^end/) }
+    it { should contain('unicorn') }
+    it { should contain('therubyracer') }
   end
 end
 
