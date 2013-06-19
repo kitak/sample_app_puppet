@@ -45,3 +45,9 @@ service { 'nginx':
   ensure => running,
   hasrestart => true,
 }
+
+service { 'mysqld':
+  enable => true,
+  ensure => running,
+  hasrestart => true,
+}
