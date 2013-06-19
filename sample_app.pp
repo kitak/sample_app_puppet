@@ -1,4 +1,8 @@
 $packages = [
+  'gcc',
+  'gcc-c++',
+  'make',
+  'wget',
   'zsh',
   'mysql-server',
   'mysql-devel',
