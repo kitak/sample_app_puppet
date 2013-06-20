@@ -57,7 +57,6 @@ describe "nginx" do
 
   describe file('/etc/nginx/nginx.conf') do
     it { should be_file }
-    it { should contain "server_name app001.kitak.pb;" }
     it { should contain "include mime.types;" }
     it { should contain(<<-EOS) }
     upstream backend {
