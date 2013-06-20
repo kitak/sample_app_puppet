@@ -69,9 +69,35 @@ service { 'mysqld':
 #        require => Service['mysqld'],
 #}
 
-exec { 'rbenv rubybuild':
+exec { 'rbenv':
   cwd     => '/usr/local',
   path    => ['/bin', '/usr/bin'],
   command => "sh ${manifest_dir}/install_rbenv_system-wide.sh",
   creates => '/usr/local/rbenv',
+  require => [User['app001'], Group['app001']],
+}
+
+exec { 'ruby2.0.0-p195':
+  user        => 'app001',
+  environment => ['RBENV_ROOT="/usr/local/rbenv"'],
+  path        => ['/bin', '/usr/bin', '/usr/local/ruby-build/bin'],
+  command     => "ruby-build 2.0.0-p195 /usr/local/rbenv/versions/2.0.0-p195",
+  require     => [Exec['rbenv'], User['app001'], Group['app001']],
+  unless      => "test -d /usr/local/rbenv/versions/2.0.0-p195",
+  timeout     => 100000000,
+}
+
+exec { 'use ruby2.0.0-p195':
+  user        => 'app001',
+  environment => ['RBENV_ROOT="/usr/local/rbenv"'],
+  path        => ['/bin', '/usr/bin', '/usr/local/rbenv/bin'],
+  command     => "echo '2.0.0-p195' > /usr/local/rbenv/version",
+  require     => Exec["ruby2.0.0-p195"],
+} 
+
+exec { 'bundler':
+  environment => ['RBENV_ROOT="/usr/local/rbenv"'],
+  path        => ['/usr/local/rbenv/shims', '/usr/local/rbenv/bin', '/bin', '/usr/bin'],
+  command     => "sh -c 'source /etc/profile.d/rbenv.sh; gem install bundler; rbenv rehash'",
+  require     => Exec["use ruby2.0.0-p195"],
 }
