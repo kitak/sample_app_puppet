@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-APP_USER = "app001"
-APP_GROUP = "app001"
+APP_USER = "app"
+APP_GROUP = "app"
 APP_PATH = "/var/www/rails/sample_app"
 
 describe "ssh" do
