@@ -74,5 +74,4 @@ exec { 'rbenv rubybuild':
   path    => ['/bin', '/usr/bin'],
   command => "sh ${manifest_dir}/install_rbenv_system-wide.sh",
   creates => '/usr/local/rbenv',
-  require => Package['git'],
 }
