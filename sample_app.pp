@@ -64,11 +64,6 @@ service { 'mysqld':
   require    => Package['mysql-server'],
 }
 
-#exec { 'mysql_secure_installation':
-#   command => '/usr/bin/mysql -uroot -e "DELETE FROM mysql.user WHERE User=\'\'; DELETE FROM mysql.user WHERE User=\'root\' AND Host NOT IN (\'localhost\', \'127.0.0.1\', \'::1\'); DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;" mysql',
-#        require => Service['mysqld'],
-#}
-
 exec { 'rbenv':
   cwd     => '/usr/local',
   path    => ['/bin', '/usr/bin'],
@@ -92,6 +87,7 @@ exec { 'use ruby2.0.0-p195':
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/bin', '/usr/bin', '/usr/local/rbenv/bin'],
   command     => "echo '2.0.0-p195' > /usr/local/rbenv/version",
+  unless      => "test `cat /usr/local/rbenv/version` == '2.0.0-p195'",
   require     => Exec["ruby2.0.0-p195"],
 } 
 
@@ -99,5 +95,22 @@ exec { 'bundler':
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/usr/local/rbenv/shims', '/usr/local/rbenv/bin', '/bin', '/usr/bin'],
   command     => "sh -c 'source /etc/profile.d/rbenv.sh; gem install bundler; rbenv rehash'",
+  unless      => "test -x /usr/local/rbenv/shims/bundle",
   require     => Exec["use ruby2.0.0-p195"],
+}
+
+$mysql_root_password = "L0BrEpuva"
+exec { "set mysql root password":
+  path    => ["/bin", "/usr/bin"],
+  command => "mysqladmin -uroot password $mysql_root_password",
+  unless  => "mysqladmin -uroot -p$mysql_root_password status",
+  require => Service["mysqld"],
+}
+
+$mysql_app_password = "AV8jsDIml"
+exec { "create mysql user for app":
+  path    => ["/bin", "/usr/bin"],
+  command => "mysql -uroot -p$mysql_root_password -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app001@localhost identified by '$mysql_app_password'; FLUSH PRIVILEGES;\"",
+  unless  => "mysqladmin -uapp001 -p$mysql_app_password status",
+  require => Exec['set mysql root password'],
 }
