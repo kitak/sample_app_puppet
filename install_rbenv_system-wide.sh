@@ -1,4 +1,4 @@
-MY_GROUP="app001"
+MY_GROUP="app"
 if [ "$MY_GROUP" = "" ] ; then
     echo '!!! undefined variable MY_GROUP.'
     echo '!!!'

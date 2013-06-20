@@ -26,17 +26,17 @@ package { $packages:
   ensure => installed,
 }
 
-user { 'app001':
+user { 'app':
   ensure     => present,
-  comment    => 'app001',
-  home       => '/home/app001',
+  comment    => 'app',
+  home       => '/home/app',
   managehome => true,
   shell      => '/bin/bash',
   uid        => 1000,
-  gid        => 'app001',
+  gid        => 'app',
 }
 
-group { 'app001':
+group { 'app':
   ensure => present,
   gid    => 1000,
 }
@@ -69,21 +69,21 @@ exec { 'rbenv':
   path    => ['/bin', '/usr/bin'],
   command => "sh ${manifest_dir}/install_rbenv_system-wide.sh",
   creates => '/usr/local/rbenv',
-  require => [User['app001'], Group['app001']],
+  require => [User['app'], Group['app']],
 }
 
 exec { 'ruby2.0.0-p195':
-  user        => 'app001',
+  user        => 'app',
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/bin', '/usr/bin', '/usr/local/ruby-build/bin'],
   command     => "ruby-build 2.0.0-p195 /usr/local/rbenv/versions/2.0.0-p195",
-  require     => [Exec['rbenv'], User['app001'], Group['app001']],
+  require     => [Exec['rbenv'], User['app'], Group['app']],
   unless      => "test -d /usr/local/rbenv/versions/2.0.0-p195",
   timeout     => 100000000,
 }
 
 exec { 'use ruby2.0.0-p195':
-  user        => 'app001',
+  user        => 'app',
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/bin', '/usr/bin', '/usr/local/rbenv/bin'],
   command     => "echo '2.0.0-p195' > /usr/local/rbenv/version",
@@ -110,14 +110,14 @@ exec { "set mysql root password":
 $mysql_app_password = "AV8jsDIml"
 exec { "create mysql user for app":
   path    => ["/bin", "/usr/bin"],
-  command => "mysql -uroot -p$mysql_root_password -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app001@localhost identified by '$mysql_app_password'; FLUSH PRIVILEGES;\"",
-  unless  => "mysqladmin -uapp001 -p$mysql_app_password status",
+  command => "mysql -uroot -p$mysql_root_password -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app@localhost identified by '$mysql_app_password'; FLUSH PRIVILEGES;\"",
+  unless  => "mysqladmin -uapp -p$mysql_app_password status",
   require => Exec['set mysql root password'],
 }
 
 exec { "create production database":
   path    => ["/bin", "/usr/bin"],
-  command => "mysql -uapp001 -p$mysql_app_password -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",
-  onlyif  => "test `mysql -u app001 -p$mysql_app_password -e \"SHOW DATABASES LIKE 'sample_app_production'\\G\" | wc -l` -eq 0",
+  command => "mysql -uapp -p$mysql_app_password -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",
+  onlyif  => "test `mysql -uapp -p$mysql_app_password -e \"SHOW DATABASES LIKE 'sample_app_production'\\G\" | wc -l` -eq 0",
   require => Exec['create mysql user for app'],
 }
