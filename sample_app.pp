@@ -114,3 +114,10 @@ exec { "create mysql user for app":
   unless  => "mysqladmin -uapp001 -p$mysql_app_password status",
   require => Exec['set mysql root password'],
 }
+
+exec { "create production database":
+  path    => ["/bin", "/usr/bin"],
+  command => "mysql -uapp001 -p$mysql_app_password -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",
+  onlyif  => "test `mysql -u app001 -p$mysql_app_password -e \"SHOW DATABASES LIKE 'sample_app_production'\\G\" | wc -l` -eq 0",
+  require => Exec['create mysql user for app'],
+}
