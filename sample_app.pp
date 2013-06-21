@@ -70,6 +70,7 @@ file { '/etc/nginx/nginx.conf':
   mode    => '0644',
   content => template('nginx.conf'),
   notify  => Service['nginx'],
+  require => Package['nginx'],
 }
 
 service { 'nginx':
