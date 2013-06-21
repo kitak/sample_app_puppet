@@ -12,7 +12,7 @@ class nginx () {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('nginx.conf'),
+    content => template('nginx/templates/nginx.conf'),
     notify  => Service['nginx'],
     require => Package['nginx'],
   }
