@@ -99,7 +99,7 @@ exec { 'ruby2.0.0-p195':
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/bin', '/usr/bin', '/usr/local/ruby-build/bin'],
   command     => "ruby-build 2.0.0-p195 /usr/local/rbenv/versions/2.0.0-p195",
-  require     => [Exec['rbenv'], Packages[$ruby_build_packages]],
+  require     => [Exec['rbenv'], Package[$ruby_build_packages]],
   unless      => "test -d /usr/local/rbenv/versions/2.0.0-p195",
   timeout     => 100000000,
 }
