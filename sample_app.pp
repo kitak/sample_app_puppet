@@ -1,4 +1,4 @@
-$manifest_dir = "/home/kitak/sample_app_spec_puppet"
+$manifest_dir = "/home/kitak/sample_app_puppet"
 
 $nginx_packages = [
   'nginx',
