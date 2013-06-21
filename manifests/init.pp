@@ -1,9 +1,5 @@
 $manifest_dir = "/home/kitak/sample_app_puppet"
 
-$nginx_packages = [
-  'nginx',
-]
-
 $mysql_packages = [
   'mysql-server',
   'mysql-devel',
@@ -32,10 +28,6 @@ $etc_packages = [
   'zsh',
 ]
 
-package { $nginx_packages:
-  ensure => installed,
-}
-
 package { $mysql_packages:
   ensure => installed,
 }
@@ -61,23 +53,6 @@ user { 'app':
 group { 'app':
   ensure => present,
   gid    => 1000,
-}
-
-file { '/etc/nginx/nginx.conf':
-  ensure  => present,
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0644',
-  content => template('nginx.conf'),
-  notify  => Service['nginx'],
-  require => Package['nginx'],
-}
-
-service { 'nginx':
-  enable     => true,
-  ensure     => running,
-  hasrestart => true,
-  require    => Package['nginx'],
 }
 
 service { 'mysqld':
