@@ -1,13 +1,18 @@
 $manifest_dir = "/home/kitak/sample_app_spec_puppet"
-$packages = [
+
+$nginx_packages = [
+  'nginx',
+]
+
+$mysql_packages = [
+  'mysql-server',
+  'mysql-devel',
+]
+
+$ruby_build_packages = [
   'gcc',
   'gcc-c++',
   'make',
-  'wget',
-  'zsh',
-  'mysql-server',
-  'mysql-devel',
-  'nginx',
   'libyaml',
   'libyaml-devel',
   'zlib',
@@ -22,7 +27,24 @@ $packages = [
   'libxslt-devel',
 ]
 
-package { $packages:
+$etc_packages = [
+  'wget',
+  'zsh',
+]
+
+package { $nginx_packages:
+  ensure => installed,
+}
+
+package { $mysql_packages:
+  ensure => installed,
+}
+
+package { $ruby_build_packages:
+  ensure => installed,
+}
+
+package { $etc_packages:
   ensure => installed,
 }
 
@@ -77,7 +99,7 @@ exec { 'ruby2.0.0-p195':
   environment => ['RBENV_ROOT="/usr/local/rbenv"'],
   path        => ['/bin', '/usr/bin', '/usr/local/ruby-build/bin'],
   command     => "ruby-build 2.0.0-p195 /usr/local/rbenv/versions/2.0.0-p195",
-  require     => [Exec['rbenv'], User['app'], Group['app']],
+  require     => [Exec['rbenv'], Packages[$ruby_build_packages]],
   unless      => "test -d /usr/local/rbenv/versions/2.0.0-p195",
   timeout     => 100000000,
 }
