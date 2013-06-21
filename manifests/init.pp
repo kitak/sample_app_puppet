@@ -22,6 +22,12 @@ group { 'app':
   gid    => 1000,
 }
 
+exec { 'create rails-web-app dir':
+  path    => ['/bin', '/usr/bin'],
+  command => "mkdir -p /var/www/rails",
+  creates => '/var/www/rails',
+}
+
 include nginx
 include mysql
 include rbenv
