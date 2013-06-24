@@ -100,3 +100,13 @@ describe "mysql" do
   end
 end
 
+describe "ruby" do
+  describe command('cat /usr/local/rbenv/version') do
+    it { should return_stdout "2.0.0-p195" }
+  end
+
+  describe package('bundler') do
+    let(:path) { '/usr/local/rbenv/shims' }
+    it { should be_installed.by('gem') }
+  end
+end
