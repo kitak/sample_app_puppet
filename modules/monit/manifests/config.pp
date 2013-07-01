@@ -1,4 +1,4 @@
-class nginx::config { 
+class monit::config { 
   file { '/etc/monit.conf':
     ensure  => present,
     owner   => 'root',
