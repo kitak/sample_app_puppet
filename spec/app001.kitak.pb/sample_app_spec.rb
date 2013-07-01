@@ -110,3 +110,17 @@ describe "ruby" do
     it { should be_installed.by('gem') }
   end
 end
+
+describe "monit" do
+  describe package('monit') do
+    it { should be_installed }
+  end
+
+  describe file('/etc/monit.conf') do
+    it { should be_file }
+  end
+
+  describe file('/etc/monit.d/unicorn') do
+    it { should be_file }
+  end
+end
