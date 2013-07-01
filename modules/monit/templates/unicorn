@@ -1,0 +1,6 @@
+check process unicorn with pidfile <%= @pid_path %>
+  start program = "/etc/init.d/unicorn start" with timeout 10 seconds
+  stop program = "/etc/init.d/unicorn stop"
+  if 2 restarts within 3 cycles then timeout
+  if cpu usage > 95% for 3 cycles then restart
+
