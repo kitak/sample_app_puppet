@@ -1,11 +1,4 @@
 MY_GROUP="app"
-if [ "$MY_GROUP" = "" ] ; then
-    echo '!!! undefined variable MY_GROUP.'
-    echo '!!!'
-    echo '!!! ex.) MY_GROUP=staff'
-    echo '!!!'
-    exit 1
-fi
  
 cd /usr/local
 git clone git://github.com/sstephenson/rbenv.git rbenv
