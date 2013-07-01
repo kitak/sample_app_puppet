@@ -34,7 +34,6 @@ file { '/etc/init.d/unicorn':
   group   => 'root',
   mode    => '0755',
   content => template('unicorn_ini.sh'),
-  ifonly => 'test -d /var/www/rails/sample_app',
 }
 
 include nginx
