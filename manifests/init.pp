@@ -28,6 +28,16 @@ exec { 'create rails-web-app dir':
   creates => '/var/www/rails',
 }
 
+file { '/etc/init.d/unicorn':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0755',
+  content => template('unicorn_ini.sh'),
+  onlyif => 'test -d /var/www/rails/sample_app',
+}
+
 include nginx
 include mysql
 include rbenv
+include monit
