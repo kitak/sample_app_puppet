@@ -1,5 +1,5 @@
 class rbenv::setup {
-  $ruby_version = "2.0.0-p247"
+  $ruby_version = "2.0.0-p195"
   exec { "use ruby${ruby_version}":
     user        => 'app',
     environment => ['RBENV_ROOT="/usr/local/rbenv"'],
