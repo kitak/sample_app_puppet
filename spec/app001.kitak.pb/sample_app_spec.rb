@@ -118,9 +118,12 @@ describe "monit" do
 
   describe file('/etc/monit.conf') do
     it { should be_file }
+    it { should be_mode 600 }
+    it { should be_owned_by 'root' }
   end
 
   describe file('/etc/monit.d/unicorn') do
     it { should be_file }
+    it { should be_owned_by 'root' }
   end
 end
