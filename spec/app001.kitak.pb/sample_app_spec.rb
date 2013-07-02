@@ -76,6 +76,10 @@ describe "unicorn" do
     it { should be_file }
   end
 
+  describe service('unicorn') do
+    it { should be_monitored_by('monit') }
+  end
+
   describe command('ps aux | grep unicorn') do
     it { should return_stdout /^#{APP_USER}.+unicorn master/ }
 
@@ -114,6 +118,10 @@ end
 describe "monit" do
   describe package('monit') do
     it { should be_installed }
+  end
+
+  describe service('monit') do
+    it { should be_running.under('upstart') }
   end
 
   describe file('/etc/monit.conf') do
