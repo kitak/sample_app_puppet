@@ -36,6 +36,14 @@ file { '/etc/init.d/unicorn':
   content => template('unicorn_ini.sh'),
 }
 
+file { '/home/app/authorized_keys2': 
+  ensure => present,
+  owner => 'app',
+  group => 'app',
+  mode  => '0700',
+  content => template('id_rsa.pub'),
+}
+
 include nginx
 include mysql
 include rbenv
