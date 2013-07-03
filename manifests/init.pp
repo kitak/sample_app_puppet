@@ -58,6 +58,14 @@ file { '/home/app/.ssh/authorized_keys2':
   content => template('id_rsa.pub'),
 }
 
+file { '/etc/sudoers':
+  ensure => present,
+  owner => 'root',
+  group => 'root',
+  mode  => '0440',
+  content => template('sudoers'),
+}
+
 include nginx
 include mysql
 include rbenv
