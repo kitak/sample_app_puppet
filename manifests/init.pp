@@ -36,6 +36,13 @@ file { '/etc/init.d/unicorn':
   content => template('unicorn_ini.sh'),
 }
 
+file { '/var/www/rails':
+  ensure => directory,
+  owner => 'app',
+  group => 'app',
+  mode => '0755'
+}
+
 file { '/home/app/.ssh':
   ensure => directory,
   owner => 'app',
