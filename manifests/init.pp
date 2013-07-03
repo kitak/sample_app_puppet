@@ -38,13 +38,14 @@ file { '/etc/init.d/unicorn':
 
 file { '/home/app/.ssh':
   ensure => directory,
+  mode => '0700'
 }
 
 file { '/home/app/.ssh/authorized_keys2': 
   ensure => present,
   owner => 'app',
   group => 'app',
-  mode  => '0444',
+  mode  => '0600',
   content => template('id_rsa.pub'),
 }
 
