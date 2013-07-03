@@ -36,11 +36,15 @@ file { '/etc/init.d/unicorn':
   content => template('unicorn_ini.sh'),
 }
 
-file { '/home/app/authorized_keys2': 
+file { '/home/app/.ssh':
+  ensure => directory,
+}
+
+file { '/home/app/.ssh/authorized_keys2': 
   ensure => present,
   owner => 'app',
   group => 'app',
-  mode  => '0700',
+  mode  => '0444',
   content => template('id_rsa.pub'),
 }
 
