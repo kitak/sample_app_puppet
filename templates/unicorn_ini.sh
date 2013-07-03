@@ -12,8 +12,8 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/var/www/rails/sample_app
-PID=$APP_ROOT/config/shared/pids/unicorn.pid
+APP_ROOT=/var/www/rails/sample_app/current
+PID=$APP_ROOT/pids/unicorn.pid
 CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 AS_USER=app
 set -u
