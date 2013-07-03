@@ -38,6 +38,8 @@ file { '/etc/init.d/unicorn':
 
 file { '/home/app/.ssh':
   ensure => directory,
+  owner => 'app',
+  group => 'app',
   mode => '0700'
 }
 
