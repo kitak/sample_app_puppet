@@ -7,7 +7,7 @@ class monit::config {
     content => template('monit/monit.conf'),
   }
 
-  $pid_path = "/var/www/rails/sample_app/config/shared/pids/unicorn.pid"
+  $pid_path = "/var/www/rails/sample_app/shared/pids/unicorn.pid"
   file { '/etc/monit.d/unicorn':
     ensure  =>  present,
     owner   => 'root',
