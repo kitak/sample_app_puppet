@@ -50,7 +50,7 @@ file { '/home/app/.ssh':
   mode => '0700'
 }
 
-file { '/home/app/.ssh/authorized_keys2': 
+file { '/home/app/.ssh/authorized_keys': 
   ensure => present,
   owner => 'app',
   group => 'app',
