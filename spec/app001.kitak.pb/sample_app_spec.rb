@@ -2,7 +2,7 @@ require 'spec_helper'
 
 APP_USER = "app"
 APP_GROUP = "app"
-APP_PATH = "/var/www/rails/sample_app"
+APP_PATH = "/var/www/rails/sample_app/current"
 
 describe "ssh" do
   describe port(22) do
@@ -60,7 +60,7 @@ describe "nginx" do
     it { should contain "include mime.types;" }
     it { should contain(<<-EOS) }
     upstream backend {
-      server unix:#{APP_PATH}/tmp/sockets/nginx.sock;
+      server unix:#{APP_PATH}/run/unicorn.sock;
     }
     EOS
     it { should contain "proxy_pass http://backend" }
@@ -68,7 +68,7 @@ describe "nginx" do
 end
 
 describe "unicorn" do
-  describe file("#{APP_PATH}/tmp/sockets/nginx.sock") do
+  describe file("#{APP_PATH}/run/unicorn.sock") do
     it { should be_socket }
   end
 
