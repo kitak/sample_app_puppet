@@ -70,3 +70,4 @@ include nginx
 include mysql
 include rbenv
 include monit
+include memcached
