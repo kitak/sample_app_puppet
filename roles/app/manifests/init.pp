@@ -15,6 +15,6 @@ class app {
   }
 
      Class['app::user_group']
-  -> Class['app:rails_app']
+  -> Class['app::rails_app']
   -> Class['::rbenv::install']
 }
