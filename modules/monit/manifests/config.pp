@@ -3,7 +3,7 @@ class monit::config {
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0400',
+    mode    => '0600',
     content => template('monit/monit.conf'),
   }
 
