@@ -27,6 +27,5 @@ class rbenv::install {
     path    => ['/bin', '/usr/bin'],
     command => "sh ${manifest_dir}/modules/rbenv/templates/install_system-wide.sh",
     creates => '/usr/local/rbenv',
-    require => [User['app'], Group['app']],
   }
 }
