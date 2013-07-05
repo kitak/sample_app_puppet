@@ -1,1 +1,3 @@
-include ::mysql 
+class db {
+  include ::mysql 
+}
