@@ -89,21 +89,6 @@ describe "unicorn" do
   end
 end
 
-describe "mysql" do
-  describe package('mysql-server') do
-    it { should be_installed }
-  end
-
-  describe service('mysqld') do
-    it { should be_enabled }
-    it { should be_running }
-  end
-
-  describe port(3306) do
-    it { should be_listening }
-  end
-end
-
 describe "ruby" do
   describe command('cat /usr/local/rbenv/version') do
     it { should return_stdout "2.0.0-p195" }
