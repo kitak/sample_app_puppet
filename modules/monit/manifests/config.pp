@@ -15,4 +15,12 @@ class monit::config {
     mode    => '0644',
     content => template('monit/unicorn'),
   }
+
+  file { '/etc/init/monit.conf':
+    ensure  =>  present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('monit/monit.upstart.conf'),
+  }
 }
