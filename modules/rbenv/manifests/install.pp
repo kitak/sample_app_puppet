@@ -1,5 +1,6 @@
 class rbenv::install {
-  $manifest_dir = "/home/kitak/sample_app_puppet"
+  $user = "kitak"
+  $manifest_dir = "/home/${kitak}/sample_app_puppet"
   $ruby_build_packages = [
     'gcc',
     'gcc-c++',
