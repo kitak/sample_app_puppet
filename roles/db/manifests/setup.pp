@@ -1,4 +1,4 @@
-class mysql::setup {
+class db::setup {
   $mysql_root_password = "L0BrEpuva"
   $mysql_app_password = "AV8jsDIml"
   $host = "192.168.0.%"
@@ -7,7 +7,6 @@ class mysql::setup {
     path    => ["/bin", "/usr/bin"],
     command => "mysqladmin -uroot password ${mysql_root_password}",
     unless  => "mysqladmin -uroot -p${mysql_root_password} status",
-    require => Service["mysqld"],
   }
   
   exec { "create mysql user for app":
