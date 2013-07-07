@@ -1,11 +1,10 @@
 class rbenv::build {
-  $ruby_version = "2.0.0-p195"
-  exec { "ruby${ruby_version}":
+  exec { "ruby${rbenv::ruby_version}":
     user        => 'app',
     environment => ['RBENV_ROOT="/usr/local/rbenv"'],
     path        => ['/bin', '/usr/bin', '/usr/local/ruby-build/bin'],
-    command     => "ruby-build ${ruby_version} /usr/local/rbenv/versions/${ruby_version}",
-    unless      => "test -d /usr/local/rbenv/versions/${ruby_version}",
+    command     => "ruby-build ${rbenv::ruby_version} /usr/local/rbenv/versions/${rbenv::ruby_version}",
+    unless      => "test -d /usr/local/rbenv/versions/${rbenv::ruby_version}",
     timeout     => 0,
   }
 }
