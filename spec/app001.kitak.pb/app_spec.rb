@@ -134,3 +134,9 @@ describe "memcached" do
     it { should be_listening }
   end
 end
+
+db_host = "192.168.0.101"
+describe host(db_host) do
+  it { should be_reachable.with(port: 22, proto: "tcp") }
+  it { should be_reachable.with(port: 3306, proto: "tcp") }
+end
