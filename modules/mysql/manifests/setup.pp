@@ -1,6 +1,7 @@
 class mysql::setup {
   $mysql_root_password = "L0BrEpuva"
   $mysql_app_password = "AV8jsDIml"
+  $host = "192.168.0.%"
 
   exec { "set mysql root password":
     path    => ["/bin", "/usr/bin"],
@@ -11,8 +12,8 @@ class mysql::setup {
   
   exec { "create mysql user for app":
     path    => ["/bin", "/usr/bin"],
-    command => "mysql -uroot -p${mysql_root_password} -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app@'192.168.0.%' identified by '${mysql_app_password}'; FLUSH PRIVILEGES;\"",
-    #unless  => "mysqladmin -uapp -p${mysql_app_password} status",
+    command => "mysql -uroot -p${mysql_root_password} -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app@'${host}' identified by '${mysql_app_password}'; FLUSH PRIVILEGES;\"",
+    unless  => "mysqladmin -uapp -p${mysql_app_password} status",
     require => Exec['set mysql root password'],
   }
   
