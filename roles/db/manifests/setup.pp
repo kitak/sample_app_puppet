@@ -1,7 +1,7 @@
 class db::setup {
   $mysql_root_password = "L0BrEpuva"
   $mysql_app_password = "AV8jsDIml"
-  $host = "192.168.0.%"
+  $host = "192.168.%.%"
 
   exec { "set mysql root password":
     path    => ["/bin", "/usr/bin"],
