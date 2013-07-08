@@ -6,6 +6,7 @@ class app {
   include app::user_group
   include app::rails_app
   include app::nginx::config
+  include app::monit::config
 
   $etc_packages = [
     'wget',
@@ -22,4 +23,7 @@ class app {
 
      Class['app::nginx::config']
   ~> Class['::nginx::service']
+
+     Class['app::monit::config']
+  ~> Class['::monit::service']
 }
