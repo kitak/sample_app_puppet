@@ -1,4 +1,8 @@
 class nginx::config { 
+  file { '/etc/nginx/conf.d/default.conf':
+    ensure =>  absent,
+  }
+
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
     owner   => 'root',
