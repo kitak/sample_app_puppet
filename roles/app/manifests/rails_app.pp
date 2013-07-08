@@ -1,4 +1,7 @@
 class app::rails_app {
+  package { "mysql-devel":
+    ensure => installed,
+  }
   
   file { '/etc/init.d/unicorn':
     ensure  => present,
