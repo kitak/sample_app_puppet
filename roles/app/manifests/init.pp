@@ -5,6 +5,7 @@ class app {
   include ::memcached
   include app::user_group
   include app::rails_app
+  include app::nginx::conf
 
   $etc_packages = [
     'wget',
@@ -18,4 +19,7 @@ class app {
      Class['app::user_group']
   -> Class['app::rails_app']
   -> Class['::rbenv::install']
+
+     Class['app::nginx::conf']
+  ~> Class['::nginx::service']
 }
