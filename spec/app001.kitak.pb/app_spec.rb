@@ -140,7 +140,7 @@ describe "memcached" do
   end
 end
 
-db_host = "192.168.48.101"
+db_host = "db001.kitak.pblan"
 describe host(db_host) do
   it { should be_reachable.with(port: 22, proto: "tcp") }
   it { should be_reachable.with(port: 3306, proto: "tcp") }
