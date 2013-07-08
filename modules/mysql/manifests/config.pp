@@ -1,4 +1,6 @@
 class mysql::config {
+  $ip_address = $ipaddress_eth1; 
+
   file { '/etc/my.cnf':
     ensure  => present,
     owner   => 'root',
