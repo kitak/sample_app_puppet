@@ -6,7 +6,7 @@ APP_PATH = "/var/www/rails/sample_app/current"
 
 describe "ssh" do
   describe port(22) do
-    it { should be_listening }
+    it { should be_listening.with("tcp") }
   end
 end
 
@@ -32,6 +32,7 @@ describe "rails app" do
 
   describe file("#{APP_PATH}/config/database.yml") do
     it { should contain('mysql2').after(/^production:/)}
+    # TODO: 接続先の確認
   end
 
   describe file("#{APP_PATH}/Gemfile") do
@@ -52,10 +53,14 @@ describe "nginx" do
   end
 
   describe port(80) do
-    it { should be_listening }
+    it { should be_listening.with("tcp") }
   end
 
   describe file('/etc/nginx/nginx.conf') do
+    it { should be_file }
+  end
+
+  describe file('/etc/nginx/conf.d/unicorn.conf') do
     it { should be_file }
     it { should contain "include mime.types;" }
     it { should contain(<<-EOS) }
@@ -131,7 +136,7 @@ describe "memcached" do
   end
 
   describe port(11211) do
-    it { should be_listening }
+    it { should be_listening.with("tcp") }
   end
 end
 
