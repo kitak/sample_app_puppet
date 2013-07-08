@@ -1,4 +1,4 @@
-class app::nginx::config { 
+class db::mysql::config { 
   file { '/etc/my.cnf':
     ensure => present,
     owner   => 'root',
