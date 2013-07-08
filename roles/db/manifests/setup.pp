@@ -18,8 +18,8 @@ class db::setup {
   
   exec { "create production database":
     path    => ["/bin", "/usr/bin"],
-    command => "mysql -uapp -p${mysql_app_password} -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",
-    onlyif  => "test `mysql -uapp -p${mysql_app_password} -e \"SHOW DATABASES LIKE 'sample_app_production'\\G\" | wc -l` -eq 0",
+    command => "mysql -uroot -p${mysql_root_password} -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",
+    onlyif  => "test `mysql -uroot -p${mysql_root_password} -e \"SHOW DATABASES LIKE 'sample_app_production'\\G\" | wc -l` -eq 0",
     require => Exec['create mysql user for app'],
   }
 }
