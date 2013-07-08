@@ -20,6 +20,6 @@ class app {
   -> Class['app::rails_app']
   -> Class['::rbenv::install']
 
-     Class['app::nginx::conf']
+     Class['app::nginx::config']
   ~> Class['::nginx::service']
 }
