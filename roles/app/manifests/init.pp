@@ -5,7 +5,7 @@ class app {
   include ::memcached
   include app::user_group
   include app::rails_app
-  include app::nginx::conf
+  include app::nginx::config
 
   $etc_packages = [
     'wget',
