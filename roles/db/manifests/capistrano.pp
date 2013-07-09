@@ -6,7 +6,6 @@ class db::capistrano {
     owner => $user,
     group => $user,
     mode => '0700',
-    require => [User[$user], Group[$user]],
   }
 
   file { "/home/${user}/.ssh/authorized_keys": 
@@ -24,6 +23,5 @@ class db::capistrano {
     group => 'root',
     mode  => '0440',
     content => template('db/sudoers'),
-    require => [User[$user], Group[$user]],
   }
 }
