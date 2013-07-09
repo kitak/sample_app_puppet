@@ -1,6 +1,6 @@
 class proxy {
   include ::nginx
-  include app::nginx::config
+  include proxy::nginx::config
 
   $etc_packages = [
     'wget',
