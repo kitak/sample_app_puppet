@@ -32,7 +32,7 @@ describe "rails app" do
 
   describe file("#{APP_PATH}/config/database.yml") do
     it { should contain('mysql2').after(/^production:/)}
-    # TODO: 接続先の確認
+    it { should contain('db001.kitak.pblan').after(/^production:/)}
   end
 
   describe file("#{APP_PATH}/Gemfile") do
