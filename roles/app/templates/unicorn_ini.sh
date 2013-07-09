@@ -55,8 +55,9 @@ restart|reload)
   run "$CMD"
   ;;
 upgrade)
-  if sig USR2
+  if sig USR2 && sleep 3
   then
+    # シグナルを送って$OLD_PINが作成されるまで高々3秒だと見積もる
     n=$TIMEOUT
     while test -s $OLD_PIN && test $n -ge 0
     do
