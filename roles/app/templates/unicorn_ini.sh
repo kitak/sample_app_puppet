@@ -55,7 +55,7 @@ restart|reload)
   run "$CMD"
   ;;
 upgrade)
-  if sig USR2 && sleep 20
+  if sig USR2
   then
     n=$TIMEOUT
     while test -s $OLD_PIN && test $n -ge 0
