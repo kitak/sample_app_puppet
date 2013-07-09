@@ -2,7 +2,6 @@ class app {
   include ::nginx
   include ::rbenv
   include ::monit
-  include ::memcached
   include app::user_group
   include app::rails_app
   include app::nginx::config

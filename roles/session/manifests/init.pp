@@ -1,0 +1,3 @@
+class session {
+  include ::memcached;
+}
