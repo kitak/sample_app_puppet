@@ -27,7 +27,7 @@ class app::user_group {
     owner => 'app',
     group => 'app',
     mode  => '0600',
-    content => template('app/id_rsa.pub'),
+    content => template('common/id_rsa.pub'),
     require => File['/home/app/.ssh'],
   }
 
