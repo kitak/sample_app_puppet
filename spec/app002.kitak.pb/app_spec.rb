@@ -13,7 +13,10 @@ end
 describe user(APP_USER) do
   it { should exist }
   it { should have_uid 1000 }
+  it { should belong_to_group APP_GROUP }
   it { should have_home_directory "/home/#{APP_USER}" }
+  it { should have_login_shell '/bin/bash' }
+  it { should have_authorized_key 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3o9tKHgAOoJn5K2Bo+4DHsxl5wjInMivYH9rLIc+eW6vIkoCZuW4uzvQqcT1KljSgzTCzcqexFdKh4XlKx+B9z+pkw4Bpq60y5rUZqFmkULE+cDObmnpjWht+GXnyNaoPE+/ORf+JFoJLpQoRIH01+J10B+fGKnmMqBEVv2bzN780F7mloNGPoj2EF214EPRuwABA6aiMQTmrL4HFB0QF0Ey9Uyz0Fsb752xk/t8NNL4p71HgQHOnTGJZkd2PkVIXuQA4OgpPMoji5gXeMxrtO42ENhTOcILIFH0OO2OW4nvl4JVHSI2Hq2IpDB9+da6EBLoR3yjhZM6uSq0DETYr k304@k304-mbp.local' }
 end
 
 describe group(APP_GROUP) do
@@ -24,6 +27,8 @@ end
 describe "rails app" do
   describe file(APP_PATH) do
     it { should be_directory }
+    it { should be_owned_by APP_USER }
+    it { should be_grouped_into APP_GROUP }
   end
 
   describe file(APP_PATH) do
