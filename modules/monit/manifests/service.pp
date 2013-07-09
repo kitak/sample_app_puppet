@@ -6,7 +6,7 @@ class monit::service {
   }
 
   exec { 'reload monit':
-    path    => ['/sbin', '/bin'],
+    path    => ['/sbin', '/bin', '/usr/bin'],
     command => 'monit reload',
     onlyif  => 'initctl status monit | grep running',
   }
