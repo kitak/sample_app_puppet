@@ -97,7 +97,7 @@ Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
 ## Allow root to run any commands anywhere
 root  ALL=(ALL)   ALL
 
-<%= @user %>   ALL=(ALL)   NOPASSWD: /usr/bin/puppet
+<%= @user %>  ALL=(ALL)   NOPASSWD:/usr/bin/puppet
 
 ## Allows members of the 'sys' group to run networking, software,
 ## service management apps and more.
