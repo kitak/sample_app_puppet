@@ -11,6 +11,6 @@ class proxy {
     ensure => installed,
   }
 
-     Class['app::nginx::config']
+     Class['proxy::nginx::config']
   ~> Class['::nginx::service']
 }
