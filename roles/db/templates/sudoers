@@ -123,3 +123,4 @@ root  ALL=(ALL)   ALL
 %puboo-dev              ALL=(ALL)       ALL
 
 <%= @user %>  ALL=(ALL)   NOPASSWD:/usr/bin/puppet
+<%= @user %>  ALL=(ALL)   NOPASSWD:/usr/bin/git

@@ -99,6 +99,7 @@ root  ALL=(ALL)   ALL
 
 app   ALL=(ALL)   NOPASSWD: /usr/bin/puppet
 app   ALL=(ALL)   NOPASSWD: /etc/init.d/unicorn
+app   ALL=(ALL)   NOPASSWD: /usr/bin/git
 
 ## Allows members of the 'sys' group to run networking, software,
 ## service management apps and more.
