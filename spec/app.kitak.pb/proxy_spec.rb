@@ -35,3 +35,11 @@ describe "nginx" do
     it { should contain "proxy_pass http://backend" }
   end
 end
+
+describe host("app001.kitak.pb") do
+  it { should be_reachable.with(port: 80, proto: "tcp") }
+end
+
+describe host("app002.kitak.pb") do
+  it { should be_reachable.with(port: 80, proto: "tcp") }
+end
