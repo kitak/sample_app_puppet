@@ -3,7 +3,7 @@ class proxy {
   include ::rbenv
   include common::install
   include app::user_group
-  include proxy::rails_app 
+  include proxy::sample_app 
   include proxy::nginx::config
 
      Class['app::user_group']

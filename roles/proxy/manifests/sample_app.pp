@@ -1,4 +1,4 @@
-class proxy::rails_app {
+class proxy::sample_app {
   package { "mysql-devel":
     ensure => installed,
   }

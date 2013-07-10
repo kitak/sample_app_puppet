@@ -1,4 +1,4 @@
-class app::rails_app {
+class app::sample_app {
   package { "mysql-devel":
     ensure => installed,
   }
