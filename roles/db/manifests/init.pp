@@ -1,6 +1,6 @@
 class db {
   include ::mysql 
-  include common::intall
+  include common::install
   include db::setup
   include db::mysql::config
   include db::capistrano
