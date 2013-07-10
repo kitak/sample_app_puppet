@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+APP_USER = "app"
+APP_GROUP = "app"
+APP_PATH = "/var/www/rails/sample_app/current"
+
 describe "ssh" do
   describe port(22) do
     it { should be_listening.with("tcp") }
@@ -43,20 +47,12 @@ describe "nginx" do
     it { should contain "include mime.types;" }
     it { should contain(<<-EOS) }
     upstream backend {
-      server app001.kitak.pb;
-      server app002.kitak.pb;
+      server app001.kitak.pb:8080;
+      server app002.kitak.pb:8080;
     }
     EOS
     it { should contain "proxy_pass http://backend" }
   end
-end
-
-describe host("app001.kitak.pb") do
-  it { should be_reachable.with(port: 80, proto: "tcp") }
-end
-
-describe host("app002.kitak.pb") do
-  it { should be_reachable.with(port: 80, proto: "tcp") }
 end
 
 describe "ruby" do
@@ -70,3 +66,12 @@ describe "ruby" do
   end
 end
 
+describe "sample_app" do
+  describe host("app001.kitak.pb") do
+    it { should be_reachable.with(port: 8080, proto: "tcp") }
+  end
+
+  describe host("app002.kitak.pb") do
+    it { should be_reachable.with(port: 8080, proto: "tcp") }
+  end
+end
