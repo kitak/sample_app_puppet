@@ -47,36 +47,6 @@ describe "rails app" do
   end
 end
 
-describe "nginx" do
-  describe package('nginx') do
-    it { should be_installed }
-  end
-
-  describe service('nginx') do
-    it { should be_enabled }
-    it { should be_running }
-  end
-
-  describe port(80) do
-    it { should be_listening.with("tcp") }
-  end
-
-  describe file('/etc/nginx/nginx.conf') do
-    it { should be_file }
-  end
-
-  describe file('/etc/nginx/conf.d/unicorn.conf') do
-    it { should be_file }
-    it { should contain "include mime.types;" }
-    it { should contain(<<-EOS) }
-    upstream backend {
-      server unix:#{APP_PATH}/run/unicorn.sock;
-    }
-    EOS
-    it { should contain "proxy_pass http://backend" }
-  end
-end
-
 describe "unicorn" do
   describe file("#{APP_PATH}/run/unicorn.sock") do
     it { should be_socket }
