@@ -22,7 +22,7 @@ describe "mysql" do
 end
 
 describe "replication" do
-  describe host("db002.kitak.pb") do
+  describe host("db001.kitak.pb") do
     it { should be_reachable.with(port: 3306, proto: "tcp") }
   end
 end
