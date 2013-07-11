@@ -55,11 +55,11 @@ restart|reload)
   run "$CMD"
   ;;
 upgrade)
-  # シグナルを送って$OLD_PINが作成されるまで高々3秒だと見積もる
-  if sig USR2 && sleep 3
+  # シグナルを送って$OLD_PINが作成されるまで高々2秒だと見積もる
+  if sig USR2 && sleep 2
   then
     # 旧マスターのワーカがリクエストを受け取らないようにする
-    sig WINCH
+    oldsig WINCH
     n=$TIMEOUT
     while test -s $OLD_PIN && test $n -ge 0
     do
