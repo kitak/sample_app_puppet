@@ -28,7 +28,7 @@ class db::mysql::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('db/mysql/mysqld.cnf'),
+    content => template('db/mysql/mysqld_safe.cnf'),
     require => File['/etc/mysql.d'],
   }
 }
