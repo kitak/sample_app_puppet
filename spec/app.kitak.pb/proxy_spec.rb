@@ -1,8 +1,5 @@
 require 'spec_helper'
-
-APP_USER = "app"
-APP_GROUP = "app"
-APP_PATH = "/var/www/rails/sample_app/current"
+require 'app_params'
 
 describe "ssh" do
   describe port(22) do
@@ -73,5 +70,23 @@ describe "sample_app" do
 
   describe host("app002.kitak.pb") do
     it { should be_reachable.with(port: 8080, proto: "tcp") }
+  end
+end
+
+describe "linux kernel parameters" do
+  context linux_kernel_parameter('net.ipv4.conf.all.arp_ignore') do
+    its(:value) { should eq 1 }
+  end
+
+  context linux_kernel_parameter('net.ipv4.conf.eth0.arp_ignore') do
+    its(:value) { should eq 1 }
+  end
+
+  context linux_kernel_parameter('net.ipv4.conf.all.arp_announce') do
+    its(:value) { should eq 2 }
+  end
+
+  context linux_kernel_parameter('net.ipv4.conf.eth0.arp_announce') do
+    its(:value) { should eq 2 }
   end
 end
