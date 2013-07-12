@@ -1,8 +1,5 @@
 require 'spec_helper'
-
-APP_USER = "app"
-APP_GROUP = "app"
-APP_PATH = "/var/www/rails/sample_app/current"
+require 'app_params'
 
 describe "ssh" do
   describe port(22) do
