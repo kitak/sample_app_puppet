@@ -1,4 +1,8 @@
 class app {
+  if ($enviroment == 'local') {
+    include ::yumrepo
+    include ::iptables
+  }
   include ::rbenv
   include ::monit
   include common::install
@@ -6,9 +10,16 @@ class app {
   include app::sample_app
   include app::monit::config
 
-     Class['app::user_group']
-  -> Class['app::sample_app']
-  -> Class['::rbenv::install']
+  if ($environment == 'local') {
+       Class['::yumrepo::repos']
+    -> Class['app::user_group']
+    -> Class['app::sample_app']
+    -> Class['::rbenv::install']
+  } else {
+       Class['app::user_group']
+    -> Class['app::sample_app']
+    -> Class['::rbenv::install']
+  }
 
      Class['app::monit::config']
   ~> Class['::monit::service']

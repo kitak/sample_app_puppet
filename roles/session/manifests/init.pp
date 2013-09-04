@@ -1,3 +1,3 @@
 class session {
-  include ::memcached;
+  include ::memcached
 }

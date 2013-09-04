@@ -2,7 +2,7 @@ class app::sample_app {
   package { "mysql-devel":
     ensure => installed,
   }
-  
+
   file { '/etc/init.d/unicorn':
     ensure  => present,
     owner   => 'root',
@@ -22,8 +22,8 @@ class app::sample_app {
     ensure => directory,
     owner => 'app',
     group => 'app',
-    mode => '0755', 
+    mode => '0755',
     require => File['/var/www'],
   }
 
-} 
+}
