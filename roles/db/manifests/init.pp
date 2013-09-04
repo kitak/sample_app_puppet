@@ -1,5 +1,5 @@
 class db {
-  if ($enviroment == 'local') {
+  if ($environment == 'local') {
     include ::yumrepo
     include ::iptables
   }
