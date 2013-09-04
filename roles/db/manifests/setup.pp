@@ -8,14 +8,14 @@ class db::setup {
     command => "mysqladmin -uroot password ${mysql_root_password}",
     unless  => "mysqladmin -uroot -p${mysql_root_password} status",
   }
-  
+
   exec { "create mysql user for app":
     path    => ["/bin", "/usr/bin"],
     command => "mysql -uroot -p${mysql_root_password} -e \"GRANT ALL PRIVILEGES ON sample_app_production.* TO app@'${host}' identified by '${mysql_app_password}'; FLUSH PRIVILEGES;\"",
     unless  => "mysqladmin -uapp -p${mysql_app_password} status",
     require => Exec['set mysql root password'],
   }
-  
+
   exec { "create production database":
     path    => ["/bin", "/usr/bin"],
     command => "mysql -uroot -p${mysql_root_password} -e \"CREATE DATABASE sample_app_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\"",

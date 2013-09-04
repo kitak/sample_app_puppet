@@ -2,12 +2,13 @@ class db {
   if ($environment == 'local') {
     include ::yumrepo
     include ::iptables
+  } else {
+    include db::capistrano
   }
   include ::mysql
   include common::install
   include db::setup
   include db::mysql::config
-  include db::capistrano
 
   if ($environment == 'local') {
        Class['::yumrepo::repos']

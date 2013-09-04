@@ -1,4 +1,4 @@
-class db::capistrano { 
+class db::capistrano {
   $user = "kitak"
   $group = "paperboy"
 
@@ -9,7 +9,7 @@ class db::capistrano {
     mode => '0700',
   }
 
-  file { "/home/${user}/.ssh/authorized_keys": 
+  file { "/home/${user}/.ssh/authorized_keys":
     ensure => present,
     owner => $user,
     group => $group,
